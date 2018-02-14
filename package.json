@@ -1,0 +1,10 @@
+{
+  "name": "hello-graphql",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "JulianMayorga <mayorga.julian@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^1.4.2"
+  }
+}
