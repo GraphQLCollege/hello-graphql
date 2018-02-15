@@ -11,12 +11,17 @@
     "react": "^16.2.0",
     "react-apollo": "^2.0.4",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "serve": "^6.4.9"
   },
   "scripts": {
     "start": "react-scripts start",
+    "now-start": "serve --single ./build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "now": {
+    "alias": "hello-graphql"
   }
 }

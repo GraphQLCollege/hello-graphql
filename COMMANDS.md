@@ -114,3 +114,12 @@ PRISMA_CLUSTER={YOUR_USERNAME_HERE}/prisma-eu1
 PRISMA_SECRET=""
 PRISMA_ENDPOINT=""
 ```
+
+## Deploy client
+
+```
+cd client
+yarn add serve
+now alias
+now --dotenv .env.prod
+```
