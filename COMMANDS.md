@@ -99,3 +99,18 @@ cd ../server
 yarn start
 npx cypress run
 ```
+
+## Deploy Prisma
+
+```
+prisma login
+mkdir .env.prod
+now --dotenv .env.prod
+```
+
+```
+PRISMA_STAGE="prod"
+PRISMA_CLUSTER={YOUR_USERNAME_HERE}/prisma-eu1
+PRISMA_SECRET=""
+PRISMA_ENDPOINT=""
+```

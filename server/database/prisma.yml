@@ -2,11 +2,11 @@
 service: server
 
 # the cluster and stage the service is deployed to
-stage: dev
+stage: ${env:PRISMA_STAGE}
 
 # to disable authentication:
 # disableAuth: true
-secret: mysecret123
+secret: ${env:PRISMA_SECRET}
 
 # the file path pointing to your data model
 datamodel: datamodel.graphql
@@ -15,4 +15,5 @@ datamodel: datamodel.graphql
 seed:
   import: seed.graphql
 
-cluster: local
+# https://www.prismagraphql.com/docs/reference/service-configuration/prisma.yml/using-variables-nu5oith4da#environment-variables
+cluster: ${env:PRISMA_CLUSTER}
