@@ -89,3 +89,13 @@ In app again:
   }
 }
 ```
+
+## Apollo client
+
+```
+cd client
+yarn add apollo-client apollo-cache-inmemory apollo-link-http react-apollo graphql-tag graphql
+cd ../server
+yarn start
+npx cypress run
+```
