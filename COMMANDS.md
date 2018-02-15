@@ -8,4 +8,84 @@ create-react-app client
 cd client
 yarn start
 npx cypress run
+prisma init server
+```
+
+* `How to set up a new Prisma service?`
+  * `GraphQL server/fullstack boilerplate (recommended)`
+* `Choose GraphQL boilerplate project:`
+  * `node-basic              Basic GraphQL server (incl. database)`
+* `Please choose the cluster you want to deploy "server@dev" to`
+  * `local           Local cluster (requires Docker)`
+
+```
+cd server
+yarn dev
+```
+
+* Make changes to datamodel.graphql
+
+```
+prisma deploy
+yarn dev
+```
+
+## GraphQL Playground
+
+In app:
+
+```
+{
+  recipient {
+    name
+  }
+}
+```
+
+```
+{
+  "data": {
+    "recipient": null
+  }
+}
+```
+
+In db:
+
+```
+mutation {
+  createRecipient(data: {name:"world"}) {
+    name
+  }
+}
+```
+
+```
+{
+  "data": {
+    "createRecipient": {
+      "name": "world"
+    }
+  }
+}
+```
+
+In app again:
+
+```
+{
+  recipient {
+    name
+  }
+}
+```
+
+```
+{
+  "data": {
+    "recipient": {
+      "name": "world"
+    }
+  }
+}
 ```
