@@ -123,3 +123,11 @@ yarn add serve
 now alias
 now --dotenv .env.prod
 ```
+
+## Continuous deployment
+
+```
+travis encrypt -r GraphQLCollege/hello-graphql NOW_TOKEN=[your_token] PRISMA_CLOUD_SESSION_KEY=[copied cloudSessionKey from ~/.prisma/config.yml] --add
+
+travis encrypt-file .env.prod --add
+```

@@ -1,20 +1,30 @@
 language: node_js
 node_js:
-  - 8.9.4
+- 8.9.4
 sudo: required
 services:
-  - docker
+- docker
 cache:
   directories:
-    - ~/.npm
-    - node_modules
-    - client/node_modules
-    - server/node_modules
+  - "~/.npm"
+  - node_modules
+  - client/node_modules
+  - server/node_modules
 install:
-  - yarn
-  - cd client && yarn
-  - cd ../server && yarn && prisma deploy
+- yarn
+- cd client && yarn
+- cd ../server && yarn && export $(egrep -v '^#' .env | xargs) && npx prisma login -k $PRISMA_CLOUD_SESSION_KEY && npx prisma deploy
 script:
-  - cd ../client && yarn start &
-  - cd ../server && yarn start &
-  - cd ../ && sleep 10 && $(npm bin)/cypress run --record
+- cd ../client && yarn start &
+- cd ../server && yarn start &
+- cd ../ && sleep 10 && $(npm bin)/cypress run --record
+after_success:
+# Export the vars in .env.prod into shell
+# Deploy db to prisma
+# Deploy server to now
+- export $(egrep -v '^#' server/.env.prod | xargs) && cd server && npx prisma deploy && npx now --token $NOW_TOKEN --dotenv=.env.prod --public && npx now --token $NOW_TOKEN alias
+before_install:
+- openssl aes-256-cbc -K $encrypted_fd3866895d3c_key -iv $encrypted_fd3866895d3c_iv -in server/.env.prod.enc -out server/.env.prod -d
+env:
+  global:
+    secure: cvl5cWpThP2sQv0JXqkduzVxKg97dKsBPsf8Cl+jpu8dCn93PylIdxEVHeoMAH9aEGagKSFHXRuzfXt3oRJu8006JDTosB6UWKoQXjhSW5tGO4gPidrE0XLr9JWHYL6duGd8Pr91oy5gbDFUChxxTmvixmnT8Y4+/2MWKelKZuipLTBb6lEpwbG7qLKW7T0Z5W839xddQlRMRdUckLhwXKElT0ghSx+VrHvH5VA9BO+np7WOl4uLvVU6fnt22w4/2j0otwqxUIj/DxhZHzXRzmj0Z/ukyYGav2WN0Fbkt7+zmjoRbKmsR4OZq+CJkDWdkMBxu8plZpe/6xudbYO4YWTNfEPMxoFrLqPIaKbCKqcBD5oUAVr8NyJlUvP/yEJgLxZ7B4vhkD7rH0WD3goCAc3ajg9LSXRCFkyMCooN8XjNRuPuDBQ7CXCq1gDqLq/lDSyknEEPt6mnwEk+hAyM5+YitqSY4ruARxulnmqd2rgeHbVMJuf09veEZ9plyaRD5VRJ+wtxGc4Wpx9Elm8kQbvqMqzOovrWOKhB7CP0SD/0tiljpCanhD1D4xWRVhbLhg89KpbOUSd/73icHLzanh1LpfXYvqCF07B3TubF9N1d1lGtYwFYYpEYLI1dE0oSnYTs/O0CQ7KgCOY1yhav+Sn9tAZe0fTBUJq+SCr3q5Q=

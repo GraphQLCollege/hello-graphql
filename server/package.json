@@ -12,7 +12,11 @@
   },
   "devDependencies": {
     "graphql-cli": "2.14.1",
+    "now-cli": "^0.0.0",
     "npm-run-all": "4.1.2",
     "prisma": "1.2.2"
+  },
+  "now": {
+    "alias": "hello-graphql-api"
   }
 }
